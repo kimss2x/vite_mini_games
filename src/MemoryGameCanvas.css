@@ -1,0 +1,89 @@
+.memory-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #0f0f12;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+.memory-game-title {
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.memory-game-difficulty-section {
+  margin-bottom: 20px;
+}
+
+.memory-game-difficulty-label {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.memory-game-difficulty-select {
+  padding: 8px 12px;
+  font-size: 16px;
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 5px;
+}
+
+.memory-game-canvas {
+  border: 2px solid #333;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #1a1a2e;
+}
+
+.memory-game-button-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.memory-game-primary-button {
+  padding: 12px 24px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.memory-game-primary-button:hover {
+  background-color: #45a049;
+}
+
+.memory-game-secondary-button {
+  padding: 12px 24px;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.memory-game-secondary-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.memory-game-instructions {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #aaa;
+  text-align: center;
+  max-width: 600px;
+}
+
+.memory-game-instructions p {
+  margin-bottom: 8px;
+}
+
+.memory-game-instructions p:last-child {
+  margin-bottom: 0;
+}
