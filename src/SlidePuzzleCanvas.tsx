@@ -15,8 +15,10 @@ interface GameStats {
 
 const GRID_SIZE = 4;
 const CANVAS_SIZE = 480;
-const TILE_SIZE = (CANVAS_SIZE - 50) / GRID_SIZE;
 const TILE_GAP = 10;
+const TILE_SIZE = (CANVAS_SIZE - (GRID_SIZE + 1) * TILE_GAP) / GRID_SIZE;
+const BOARD_SIZE = GRID_SIZE * TILE_SIZE + (GRID_SIZE - 1) * TILE_GAP;
+const START = (CANVAS_SIZE - BOARD_SIZE) / 2;
 
 // 타일 색상
 const TILE_COLORS = {
@@ -163,8 +165,8 @@ const SlidePuzzleCanvas: React.FC = () => {
 
   // 캔버스에서 클릭된 타일 인덱스 계산
   const getTileFromPosition = useCallback((x: number, y: number): number | null => {
-    const startX = 25;
-    const startY = 25;
+    const startX = START;
+    const startY = START;
     
     const col = Math.floor((x - startX) / (TILE_SIZE + TILE_GAP));
     const row = Math.floor((y - startY) / (TILE_SIZE + TILE_GAP));
@@ -263,14 +265,14 @@ const SlidePuzzleCanvas: React.FC = () => {
 
     // 그리드 배경
     ctx.fillStyle = '#E9ECEF';
-    ctx.fillRect(15, 15, CANVAS_SIZE - 30, CANVAS_SIZE - 30);
+    ctx.fillRect(START, START, BOARD_SIZE, BOARD_SIZE);
 
     // 타일 그리기
     for (let i = 0; i < 16; i++) {
       const row = Math.floor(i / GRID_SIZE);
       const col = i % GRID_SIZE;
-      const x = 25 + col * (TILE_SIZE + TILE_GAP);
-      const y = 25 + row * (TILE_SIZE + TILE_GAP);
+      const x = START + col * (TILE_SIZE + TILE_GAP);
+      const y = START + row * (TILE_SIZE + TILE_GAP);
       const value = puzzle[i];
       
       if (value === 16) continue; // 빈 칸은 그리지 않음
