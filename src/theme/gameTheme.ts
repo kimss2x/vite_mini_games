@@ -68,6 +68,11 @@ export const spacing = {
   xxl: 24
 };
 
+// 공통 레이아웃 설정
+export const layout = {
+  maxWidth: 640
+};
+
 export const gameContainerStyle: React.CSSProperties = {
   display: "grid",
   gap: spacing.lg,
@@ -84,7 +89,10 @@ export const canvasStyle: React.CSSProperties = {
   background: colors.canvasBackground,
   boxShadow: "0 10px 40px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.06)",
   borderRadius: 14,
-  touchAction: "none"
+  touchAction: "none",
+  width: "100%",
+  height: "auto",
+  display: "block"
 };
 
 export const buttonStyles = {
