@@ -1,5 +1,5 @@
 import React from 'react';
-import { spacing, typography, colors } from '../theme/gameTheme';
+import { spacing, typography, colors, layout } from '../theme/gameTheme';
 
 interface GameManagerProps {
   // 게임 식별 정보
@@ -92,25 +92,29 @@ const GameManager: React.FC<GameManagerProps> = ({
       </button>
 
       {/* 메인 게임 영역 - 중앙 정렬 */}
-      <div style={{
-        width: '100%',
-        maxWidth: '1200px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: spacing.xl
-      }}>
+      <div
+        style={{
+          width: '100%',
+          maxWidth: layout.maxWidth,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: spacing.xl,
+        }}
+      >
         
         {/* 상단 영역 - 파란색 박스 (게임 상태/점수) */}
-        <div style={{
-          background: colors.panelBackground,
-          borderRadius: 12,
-          padding: spacing.lg,
-          width: '100%',
-          maxWidth: '800px',
-          border: `2px solid ${colors.accent}`,
-          boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
-        }}>
+        <div
+          style={{
+            background: colors.panelBackground,
+            borderRadius: 12,
+            padding: spacing.lg,
+            width: '100%',
+            maxWidth: layout.maxWidth,
+            border: `2px solid ${colors.accent}`,
+            boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+          }}
+        >
           {/* 게임 타이틀 */}
           <div style={{
             textAlign: 'center',
@@ -149,29 +153,35 @@ const GameManager: React.FC<GameManagerProps> = ({
         </div>
 
         {/* 중앙 게임 캔버스 영역 - 빨간색 박스 */}
-        <div style={{
-          background: colors.canvasBackground,
-          borderRadius: 16,
-          padding: spacing.md,
-          border: `2px solid ${colors.canvasBorder}`,
-          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
+        <div
+          style={{
+            background: colors.canvasBackground,
+            borderRadius: 16,
+            padding: spacing.md,
+            border: `2px solid ${colors.canvasBorder}`,
+            boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            maxWidth: layout.maxWidth,
+          }}
+        >
           {children}
         </div>
 
         {/* 하단 영역 - 녹색 박스 (조작법/기능 버튼) */}
-        <div style={{
-          background: colors.panelBackground,
-          borderRadius: 12,
-          padding: spacing.lg,
-          width: '100%',
-          maxWidth: '800px',
-          border: `2px solid ${colors.success}`,
-          boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
-        }}>
+        <div
+          style={{
+            background: colors.panelBackground,
+            borderRadius: 12,
+            padding: spacing.lg,
+            width: '100%',
+            maxWidth: layout.maxWidth,
+            border: `2px solid ${colors.success}`,
+            boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+          }}
+        >
           
           {/* 조작법 */}
           {instructions && (
