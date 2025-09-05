@@ -29,7 +29,8 @@ const CANVAS_WIDTH = 700;
 const CANVAS_HEIGHT = 600;
 const CELL_SIZE = 80;
 const CHIP_RADIUS = 30;
-const MARGIN = 50;
+const MARGIN_X = (CANVAS_WIDTH - COLS * CELL_SIZE) / 2;
+const MARGIN_Y = (CANVAS_HEIGHT - ROWS * CELL_SIZE) / 2;
 
 // 칩 색상
 const CHIP_COLORS = {
@@ -279,7 +280,7 @@ const ConnectFourCanvas: React.FC = () => {
 
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
-    const col = Math.floor((x - MARGIN) / CELL_SIZE);
+    const col = Math.floor((x - MARGIN_X) / CELL_SIZE);
 
     if (col >= 0 && col < COLS) {
       makeMove(col);
@@ -298,7 +299,7 @@ const ConnectFourCanvas: React.FC = () => {
 
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
-    const col = Math.floor((x - MARGIN) / CELL_SIZE);
+    const col = Math.floor((x - MARGIN_X) / CELL_SIZE);
 
     if (col >= 0 && col < COLS && isValidMove(board, col)) {
       setHoveredCol(col);
@@ -322,8 +323,8 @@ const ConnectFourCanvas: React.FC = () => {
     // 그리드 그리기
     for (let row = 0; row < ROWS; row++) {
       for (let col = 0; col < COLS; col++) {
-        const x = MARGIN + col * CELL_SIZE;
-        const y = MARGIN + row * CELL_SIZE;
+        const x = MARGIN_X + col * CELL_SIZE;
+        const y = MARGIN_Y + row * CELL_SIZE;
         const centerX = x + CELL_SIZE / 2;
         const centerY = y + CELL_SIZE / 2;
 
@@ -368,17 +369,17 @@ const ConnectFourCanvas: React.FC = () => {
 
     // 호버된 열 하이라이트
     if (hoveredCol !== null && gameState === GameState.PLAYING) {
-      const x = MARGIN + hoveredCol * CELL_SIZE;
+      const x = MARGIN_X + hoveredCol * CELL_SIZE;
       ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-      ctx.fillRect(x, MARGIN, CELL_SIZE, ROWS * CELL_SIZE);
+      ctx.fillRect(x, MARGIN_Y, CELL_SIZE, ROWS * CELL_SIZE);
     }
 
     // 드랍 애니메이션
     if (droppingChip) {
       const { col, row, progress } = droppingChip;
-      const x = MARGIN + col * CELL_SIZE + CELL_SIZE / 2;
-      const startY = MARGIN - CHIP_RADIUS;
-      const endY = MARGIN + row * CELL_SIZE + CELL_SIZE / 2;
+      const x = MARGIN_X + col * CELL_SIZE + CELL_SIZE / 2;
+      const startY = MARGIN_Y - CHIP_RADIUS;
+      const endY = MARGIN_Y + row * CELL_SIZE + CELL_SIZE / 2;
       const currentY = startY + (endY - startY) * progress;
 
       ctx.fillStyle = CHIP_COLORS[currentPlayer];
