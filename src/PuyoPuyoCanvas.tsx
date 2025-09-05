@@ -226,7 +226,7 @@ const PuyoPuyoCanvas: React.FC = () => {
         e.stopPropagation();
         return;
       }
-      if (['a', 'd', 's', 'w', 'r'].includes(key)) {
+      if (['a', 'd', 's', 'w', 'r', ' '].includes(key)) {
         e.stopPropagation();
       }
       if (key === 'r') {
@@ -240,6 +240,11 @@ const PuyoPuyoCanvas: React.FC = () => {
         pairRef.current.x++;
       } else if (key === 's' && canMove(0, 1, 0)) {
         pairRef.current.y++;
+      } else if (e.code === 'Space') {
+        while (canMove(0, 1, 0)) {
+          pairRef.current.y++;
+        }
+        lockPair();
       } else if (key === 'w' && canMove(0, 0, 1)) {
         pairRef.current.rotation = (pairRef.current.rotation + 1) % 4;
       }
@@ -247,13 +252,13 @@ const PuyoPuyoCanvas: React.FC = () => {
     };
     window.addEventListener('keydown', handleKey, { capture: true });
     return () => window.removeEventListener('keydown', handleKey, { capture: true });
-  }, [canMove, draw, resetGame, state]);
+  }, [canMove, draw, resetGame, state, lockPair]);
 
   return (
     <GameLayout
       title="🍡 Puyo Puyo"
       topInfo={<div>Score: {score}</div>}
-      bottomInfo={<div>A/D 좌우, S 아래, W 회전, R=Reset</div>}
+      bottomInfo={<div>A/D 좌우, S 아래, Space 하드드롭, W 회전, R=Reset</div>}
     >
       <GameCanvas
         ref={canvasRef}

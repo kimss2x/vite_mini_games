@@ -127,18 +127,18 @@ const DominoCanvas: React.FC = () => {
       const dominos = dominosRef.current;
       dominos.forEach((d, i) => {
         if (d.falling && !d.fallen) {
-          d.angle += 0.1;
+          d.angle -= 0.1;
           const next = dominos[i + 1];
           if (
             next &&
             next.index === d.index + 1 &&
             !next.falling &&
-            d.angle >= TRIGGER_ANGLE
+            d.angle <= -TRIGGER_ANGLE
           ) {
             next.falling = true;
           }
-          if (d.angle >= Math.PI / 2) {
-            d.angle = Math.PI / 2;
+          if (d.angle <= -Math.PI / 2) {
+            d.angle = -Math.PI / 2;
             d.falling = false;
             d.fallen = true;
             if (d.index !== GOAL_INDEX) {

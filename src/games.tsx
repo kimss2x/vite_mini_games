@@ -35,6 +35,7 @@ import TowerBuilderCanvas from './TowerBuilderCanvas';
 import WatermelonCanvas from './WatermelonCanvas';
 import BubbleShooterCanvas from './BubbleShooterCanvas';
 import DominoCanvas from './DominoCanvas';
+import PacmanCanvas from './PacmanCanvas';
 
 export const games = [
   {
@@ -260,6 +261,14 @@ export const games = [
     description: '떨어지는 2개 블록을 맞춰 4개 이상 연결해 제거하세요.',
     hotkey: 'y',
     render: () => <PuyoPuyoCanvas />,
+  },
+  {
+    id: 'pacman',
+    title: '🟡 Pac-Man',
+    tipName: 'Pac-Man',
+    description: '미로를 돌아다니며 점을 먹고 유령을 피해 다니세요.',
+    hotkey: 'z',
+    render: () => <PacmanCanvas />,
   },
   {
     id: 'penguin',
