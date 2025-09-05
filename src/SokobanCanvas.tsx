@@ -236,7 +236,7 @@ const SokobanCanvas: React.FC = () => {
 
   useEffect(() => {
     initLevel(0);
-  }, [initLevel]);
+  }, []); // initialize only once
 
   /* ====== 승리 판정: TARGET / PLAYER_ON_TARGET 남아 있으면 미완료 ====== */
   const checkWin = useCallback((currentMap: TileType[][]) => {
@@ -301,17 +301,12 @@ const SokobanCanvas: React.FC = () => {
       const t1 = map[ny][nx];
       if (t1 === TileType.WALL) return;
 
-      // 상태 저장(Undo)
-      saveState();
-
       const newMap = deepCopyMap(map);
       let newPlayerX = playerX;
       let newPlayerY = playerY;
-
       const curr = newMap[playerY][playerX];
 
       if (isWalkable(t1)) {
-        // 플레이어 이동만
         newMap[playerY][playerX] = toEmptyFrom(curr);
         newMap[ny][nx] = toPlayerOn(t1);
         newPlayerX = nx;
@@ -320,38 +315,27 @@ const SokobanCanvas: React.FC = () => {
         const bx = nx + dx;
         const by = ny + dy;
         if (by < 0 || bx < 0 || by >= newMap.length || bx >= newMap[0].length) {
-          // 밀 수 없음
-          undoStack.current.pop(); // 저장했던 상태 되돌림(무효 이동)
           return;
         }
         const t2 = newMap[by][bx];
-        if (isWalkable(t2)) {
-          // 박스 밀기 가능
-          // 플레이어 자리 비우고
-          newMap[playerY][playerX] = toEmptyFrom(curr);
-          // 박스가 있던 자리로 플레이어 이동
-          newMap[ny][nx] = toPlayerOn(toEmptyFrom(t1));
-          // 박스는 그 다음 칸으로
-          newMap[by][bx] = toBoxOn(t2);
-          newPlayerX = nx;
-          newPlayerY = ny;
-        } else {
-          // 박스 뒤가 비어있지 않음 → 무효 이동
-          undoStack.current.pop();
-          return;
-        }
+        if (!isWalkable(t2)) return;
+        newMap[playerY][playerX] = toEmptyFrom(curr);
+        newMap[ny][nx] = toPlayerOn(toEmptyFrom(t1));
+        newMap[by][bx] = toBoxOn(t2);
+        newPlayerX = nx;
+        newPlayerY = ny;
       } else {
-        // 기타 타일(이동 불가)
-        undoStack.current.pop();
         return;
       }
+
+      // 상태 저장(Undo)
+      saveState();
 
       setMap(newMap);
       setPlayerX(newPlayerX);
       setPlayerY(newPlayerY);
       setGameState((s) => ({ ...s, moves: s.moves + 1 }));
 
-      // 승리 체크
       if (checkWin(newMap)) {
         const nextLevelIndex = gameState.level + 1; // 클로저 안전
         setTimeout(() => {
@@ -411,7 +395,7 @@ const SokobanCanvas: React.FC = () => {
       if (k === "p") return initLevel(Math.max(gameState.level - 1, 0)); // 이전 레벨
     };
     window.addEventListener("keydown", handler, { capture: true });
-    return () => window.removeEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler, { capture: true });
   }, [tryMove, undo, redo, initLevel, gameState.level]);
 
   /* ====== 렌더링 ====== */
