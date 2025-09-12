@@ -185,20 +185,11 @@ export default function PingPongCanvas({ width, height }: Props) {
       ctx.shadowColor = "rgba(0,0,0,0.45)";
       ctx.shadowBlur = 12;
       ctx.fillStyle = color;
+
       ctx.beginPath();
-      // roundRect 폴백
-      (ctx as any).roundRect
-        ? (ctx as any).roundRect(x, y, s, s, 6)
-        : (() => {
-            const r = 6;
-            ctx.moveTo(x + r, y);
-            ctx.arcTo(x + s, y, x + s, y + s, r);
-            ctx.arcTo(x + s, y + s, x, y + s, r);
-            ctx.arcTo(x, y + s, x, y, r);
-            ctx.arcTo(x, y, x + s, y, r);
-            ctx.closePath();
-          })();
+      ctx.arc(x + s / 2, y + s / 2, s / 2, 0, Math.PI * 2);
       ctx.fill();
+
       ctx.restore();
     }
 
