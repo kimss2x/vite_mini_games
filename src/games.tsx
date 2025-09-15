@@ -53,7 +53,7 @@ export const games = [
     tipName: 'Ping Pong',
     description: '마우스/키보드로 패들을 조작해 AI와 대결해요.',
     hotkey: '1',
-    render: () => <PingPongCanvas width={900} height={540} />,
+    render: () => <PingPongCanvas width={900} height={400} />,
   },
   {
     id: 'tetris',
