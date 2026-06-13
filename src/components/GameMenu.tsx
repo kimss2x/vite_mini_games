@@ -3,6 +3,55 @@ import { GameDefinition, GameId } from '../games';
 
 const FORMSPREE_FEEDBACK_ENDPOINT = 'https://formspree.io/f/mvznvepj';
 
+const GAME_ICONS: Partial<Record<GameId, string>> = {
+  pingpong:      '/images/icons/noah-ping-pong-garden.png',
+  tetris:        '/images/icons/tetris.png',
+  snake:         '/images/icons/snake.png',
+  omok:          '/images/icons/omok.png',
+  lightsout:     '/images/icons/lights-out.png',
+  simon:         '/images/icons/simon-says.png',
+  reaction:      '/images/icons/reaction-test.png',
+  aim:           '/images/icons/aim-trainer.png',
+  breakout:      '/images/icons/breakout.png',
+  flappy:        '/images/icons/flappy-bird.png',
+  memory:        '/images/icons/memory-cards.png',
+  dodge:         '/images/icons/dodge-game.png',
+  '2048':        '/images/icons/2048.png',
+  slide:         '/images/icons/slide-puzzle.png',
+  sokoban:       '/images/icons/sokoban.png',
+  connect4:      '/images/icons/connect-four.png',
+  minigolf:      '/images/icons/mini-golf.png',
+  frogger:       '/images/icons/frogger.png',
+  tictactoe:     '/images/icons/tic-tac-toe.png',
+  whack:         '/images/icons/whack-a-mole.png',
+  galaga:        '/images/icons/galaga.png',
+  space:         '/images/icons/space-invaders.png',
+  hextris:       '/images/icons/hextris.png',
+  puyo:          '/images/icons/puyo-puyo.png',
+  pacman:        '/images/icons/pacman.png',
+  penguin:       '/images/icons/penguin-jump.png',
+  pumpitup:      '/images/icons/pump-it-up.png',
+  columns:       '/images/icons/columns.png',
+  paper:         '/images/icons/paper-io.png',
+  tower:         '/images/icons/tower-builder.png',
+  qix:           '/images/icons/qix.png',
+  bomber:        '/images/icons/bomberman.png',
+  watermelon:    '/images/icons/watermelon.png',
+  mergepets:     '/images/icons/merge-pets.png',
+  mergecatsdogs: '/images/icons/merge-cats-dogs.png',
+  domino:        '/images/icons/domino.png',
+  bubbleshooter: '/images/icons/bubble-shooter.png',
+  crossy:        '/images/icons/crossy-road.png',
+  checkers:      '/images/icons/checkers.png',
+  othello:       '/images/icons/othello.png',
+  chess:         '/images/icons/chess.png',
+  mancala:       '/images/icons/mancala.png',
+  match3:        '/images/icons/match-3.png',
+  picross:       '/images/icons/picross.png',
+  minesweeper:   '/images/icons/minesweeper.png',
+  mastermind:    '/images/icons/mastermind.png',
+};
+
 type Props = {
   games: readonly GameDefinition[];
   onSelect: (id: GameId) => void;
@@ -89,14 +138,37 @@ export default function GameMenu({ games, onSelect }: Props) {
     }
   };
 
-  const Card: React.FC<{ title: string; desc: string; onClick: () => void }> = ({
+  const Card: React.FC<{ title: string; desc: string; icon?: string; onClick: () => void }> = ({
     title,
     desc,
+    icon,
     onClick,
   }) => (
-    <button className="ns-game-card" onClick={onClick}>
-      <div style={{ fontWeight: 800, fontSize: 18 }}>{title}</div>
-      <div style={{ fontSize: 13, color: '#7c6047', lineHeight: 1.45 }}>{desc}</div>
+    <button
+      className="ns-game-card"
+      onClick={onClick}
+      style={icon ? { padding: 0, overflow: 'hidden', gap: 0 } : undefined}
+    >
+      {icon && (
+        <img
+          src={icon}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          style={{
+            width: '100%',
+            height: 140,
+            objectFit: 'cover',
+            display: 'block',
+            borderRadius: '10px 10px 0 0',
+          }}
+          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+        />
+      )}
+      <div style={{ padding: icon ? '12px 14px 14px' : undefined, display: 'grid', gap: 6 }}>
+        <div style={{ fontWeight: 800, fontSize: 17 }}>{title}</div>
+        <div style={{ fontSize: 13, color: '#7c6047', lineHeight: 1.45 }}>{desc}</div>
+      </div>
     </button>
   );
 
@@ -257,7 +329,7 @@ export default function GameMenu({ games, onSelect }: Props) {
           }}
         >
           {games.map((g) => (
-            <Card key={g.id} title={g.title} desc={g.description} onClick={() => onSelect(g.id)} />
+            <Card key={g.id} title={g.title} desc={g.description} icon={GAME_ICONS[g.id]} onClick={() => onSelect(g.id)} />
           ))}
         </div>
 
