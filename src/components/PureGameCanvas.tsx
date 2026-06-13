@@ -20,8 +20,11 @@ const PureGameCanvas = forwardRef<HTMLCanvasElement, PureGameCanvasProps>(
         height={height}
         style={{
           display: 'block',
+          width: '100%',
+          height: 'auto',
           maxWidth: '100%',
           maxHeight: '100%',
+          aspectRatio: `${width} / ${height}`,
           ...style
         }}
         aria-label={gameTitle || 'Game Canvas'}

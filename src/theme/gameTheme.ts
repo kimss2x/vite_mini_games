@@ -2,36 +2,37 @@
 
 export const colors = {
   // 배경색
-  appBackground: "#0f0f12",
-  canvasBackground: "radial-gradient(1200px 600px at 50% 50%, #15161a 0%, #0f0f12 70%)",
+  appBackground:
+    "radial-gradient(circle at 14% 18%, rgba(255, 226, 145, 0.58), transparent 24%), radial-gradient(circle at 86% 12%, rgba(176, 220, 167, 0.45), transparent 22%), linear-gradient(180deg, #fff4d8 0%, #f7dfb5 58%, #f0d49a 100%)",
+  canvasBackground: "rgba(255, 250, 235, 0.66)",
   
   // 텍스트 색상
-  primary: "#f3f3f6",
-  secondary: "#e8e8ea", 
-  muted: "#bcbcbe",
-  textPrimary: "#f3f3f6",
-  textSecondary: "#bcbcbe",
+  primary: "#6b4328",
+  secondary: "#7b5b3d", 
+  muted: "#8a6a4b",
+  textPrimary: "#6b4328",
+  textSecondary: "#7b5b3d",
   
   // 액센트 색상
-  accent: "#4169E1",
-  success: "#22C55E",
+  accent: "#d97845",
+  success: "#8ab275",
   warning: "#F59E0B",
   error: "#EF4444",
   
   // 게임 요소
-  player: "#7DE5FF",
-  opponent: "#FFB86B",
-  neutral: "#A0A0A0",
+  player: "#c47f4d",
+  opponent: "#8ab275",
+  neutral: "#a98a66",
   
   // 패널 및 컨테이너
-  panelBackground: "rgba(21, 22, 26, 0.8)",
-  canvasBorder: "rgba(255,255,255,0.06)",
+  panelBackground: "rgba(255, 250, 235, 0.78)",
+  canvasBorder: "rgba(139, 93, 51, 0.18)",
   
   // 버튼 색상
-  buttonPrimary: "#4169E1",
-  buttonSecondary: "rgba(255,255,255,0.1)",
-  buttonSecondaryHover: "rgba(255,255,255,0.15)",
-  buttonBorder: "rgba(255,255,255,0.2)"
+  buttonPrimary: "#d97845",
+  buttonSecondary: "rgba(255, 250, 235, 0.9)",
+  buttonSecondaryHover: "rgba(255, 244, 216, 1)",
+  buttonBorder: "rgba(139, 93, 51, 0.22)"
 };
 
 export const typography = {
@@ -39,7 +40,7 @@ export const typography = {
     fontSize: 18,
     fontWeight: 700,
     color: colors.primary,
-    textShadow: "0 1px 0 rgba(0,0,0,.6)"
+    textShadow: "none"
   },
   gameStatus: {
     fontSize: 16,
@@ -55,7 +56,7 @@ export const typography = {
   score: {
     fontSize: 20,
     fontWeight: 700,
-    color: "#ffffff"
+    color: colors.primary
   }
 };
 
@@ -70,7 +71,7 @@ export const spacing = {
 
 // 공통 레이아웃 설정
 export const layout = {
-  maxWidth: 640
+  maxWidth: 960
 };
 
 export const gameContainerStyle: React.CSSProperties = {
@@ -87,7 +88,7 @@ export const gameContainerStyle: React.CSSProperties = {
 
 export const canvasStyle: React.CSSProperties = {
   background: colors.canvasBackground,
-  boxShadow: "0 10px 40px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.06)",
+  boxShadow: "0 10px 28px rgba(112, 78, 42, 0.18), inset 0 0 0 1px rgba(139, 93, 51, 0.12)",
   borderRadius: 14,
   touchAction: "none",
   width: "100%",
@@ -98,7 +99,7 @@ export const canvasStyle: React.CSSProperties = {
 export const buttonStyles = {
   primary: {
     background: colors.buttonPrimary,
-    color: "#ffffff",
+    color: "#fffaf0",
     padding: "12px 24px",
     fontSize: 16,
     fontWeight: 600,
@@ -112,7 +113,7 @@ export const buttonStyles = {
   
   secondary: {
     background: colors.buttonSecondary,
-    color: colors.secondary,
+    color: colors.primary,
     border: `1px solid ${colors.buttonBorder}`,
     padding: "12px 24px",
     fontSize: 16,
@@ -135,7 +136,7 @@ export const buttonStyles = {
 // 호버 효과를 위한 함수들
 export const getButtonHoverStyle = (baseStyle: React.CSSProperties) => {
   if (baseStyle.background === colors.buttonPrimary) {
-    return { ...baseStyle, background: "#2E5BDB" };
+    return { ...baseStyle, background: "#c76835" };
   }
-  return { ...baseStyle, background: "rgba(255,255,255,0.15)" };
+  return { ...baseStyle, background: "rgba(255, 244, 216, 1)" };
 };

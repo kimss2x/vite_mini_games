@@ -49,9 +49,9 @@ import MancalaCanvas from './MancalaCanvas';
 export const games = [
   {
     id: 'pingpong',
-    title: '🏓 Ping Pong',
-    tipName: 'Ping Pong',
-    description: '마우스/키보드로 패들을 조작해 AI와 대결해요.',
+    title: 'Noah Ping Pong Garden',
+    tipName: 'Noah Ping Pong Garden',
+    description: '별 씨앗을 튕기며 Noah Studio 정원에서 AI와 대결해요.',
     hotkey: '1',
     render: () => <PingPongCanvas width={900} height={400} />,
   },

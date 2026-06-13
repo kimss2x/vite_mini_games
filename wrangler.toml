@@ -1,0 +1,9 @@
+name = "noah-studio-mini-games"
+compatibility_date = "2026-06-14"
+pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noah_studio_mini_games"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+

@@ -56,7 +56,8 @@ const GameManager: React.FC<GameManagerProps> = ({
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      padding: spacing.xl,
+      padding: 'clamp(14px, 4vw, 32px)',
+      paddingTop: 'clamp(64px, 12vw, 86px)',
       position: 'relative'
     }}>
       
@@ -65,8 +66,8 @@ const GameManager: React.FC<GameManagerProps> = ({
         onClick={handleBackToMenu}
         style={{
           position: 'fixed',
-          top: spacing.lg,
-          left: spacing.lg,
+          top: 'clamp(12px, 3vw, 24px)',
+          left: 'clamp(12px, 3vw, 24px)',
           background: colors.buttonSecondary,
           color: colors.textPrimary,
           border: 'none',
@@ -95,11 +96,11 @@ const GameManager: React.FC<GameManagerProps> = ({
       <div
         style={{
           width: '100%',
-          maxWidth: layout.maxWidth,
+          maxWidth: `min(${layout.maxWidth}px, 100%)`,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: spacing.xl,
+          gap: 'clamp(14px, 4vw, 32px)',
         }}
       >
         
@@ -108,9 +109,10 @@ const GameManager: React.FC<GameManagerProps> = ({
           style={{
             background: colors.panelBackground,
             borderRadius: 12,
-            padding: spacing.lg,
+            padding: 'clamp(14px, 4vw, 24px)',
             width: '100%',
-            maxWidth: layout.maxWidth,
+            boxSizing: 'border-box',
+            maxWidth: `min(${layout.maxWidth}px, 100%)`,
             border: `2px solid ${colors.accent}`,
             boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
           }}
@@ -157,14 +159,16 @@ const GameManager: React.FC<GameManagerProps> = ({
           style={{
             background: colors.canvasBackground,
             borderRadius: 16,
-            padding: spacing.md,
+            padding: 'clamp(8px, 2.6vw, 16px)',
             border: `2px solid ${colors.canvasBorder}`,
             boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%',
-            maxWidth: layout.maxWidth,
+            boxSizing: 'border-box',
+            maxWidth: `min(${layout.maxWidth}px, 100%)`,
+            overflow: 'hidden',
           }}
         >
           {children}
@@ -175,9 +179,10 @@ const GameManager: React.FC<GameManagerProps> = ({
           style={{
             background: colors.panelBackground,
             borderRadius: 12,
-            padding: spacing.lg,
+            padding: 'clamp(14px, 4vw, 24px)',
             width: '100%',
-            maxWidth: layout.maxWidth,
+            boxSizing: 'border-box',
+            maxWidth: `min(${layout.maxWidth}px, 100%)`,
             border: `2px solid ${colors.success}`,
             boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
           }}
