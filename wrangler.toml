@@ -1,5 +1,5 @@
 name = "noah-studio-mini-games"
-compatibility_date = "2026-06-14"
+compatibility_date = "2026-06-13"
 pages_build_output_dir = "dist"
 
 [[d1_databases]]
