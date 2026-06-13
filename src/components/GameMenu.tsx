@@ -168,9 +168,15 @@ export default function GameMenu({ games, onSelect }: Props) {
               color: '#705037',
             }}
           >
-            <strong>Noah Ping Pong Garden</strong>부터 시작합니다. 마우스나 터치 드래그로
-            왼쪽 패들을 움직이고, 키보드에서는 W/S 또는 ↑/↓를 사용합니다. Space는
-            일시정지, R은 재시작입니다. 5점을 먼저 얻으면 결과 화면이 나타납니다.
+            <p style={{ margin: '0 0 8px' }}>
+              카드를 클릭해 게임을 시작하거나, 단축키를 눌러 바로 이동하세요. 각 게임의 조작법은 게임 화면 하단에 표시됩니다.
+            </p>
+            <p style={{ margin: '0 0 8px' }}>
+              공통 조작: <strong>R</strong> 재시작 · <strong>Space/P</strong> 일시정지 · <strong>Esc</strong> 메뉴로 돌아가기
+            </p>
+            <p style={{ margin: 0, fontSize: 13, color: '#8a6a4b' }}>
+              대부분의 게임은 터치도 지원합니다. 캔버스 게임은 스와이프로 방향을 조작할 수 있어요.
+            </p>
           </div>
         )}
 

@@ -121,7 +121,9 @@ const LightsOutCanvas: React.FC = () => {
       canvas.width = targetW;
       canvas.height = targetH;
       canvas.style.width = `${logicalWidth}px`;
-      canvas.style.height = `${logicalHeight}px`;
+      canvas.style.maxWidth = "100%";
+      canvas.style.height = "auto";
+      canvas.style.aspectRatio = "1 / 1";
     }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // 논리 공간으로 그리기
 

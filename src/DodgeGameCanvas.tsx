@@ -295,7 +295,7 @@ const DodgeGameCanvas: React.FC = () => {
 
   return (
     <GameManager
-      title="회피게임"
+      title="Dodge Game"
       gameIcon="🚫"
       gameStats={gameStats}
       instructions={instructions}

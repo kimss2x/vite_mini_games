@@ -108,7 +108,9 @@ export default function OmokCanvas() {
     const size = MARGIN * 2 + CELL * (BOARD_SIZE - 1);
     const dpr = Math.max(1, window.devicePixelRatio || 1);
     canvas.style.width = size + "px";
-    canvas.style.height = size + "px";
+    canvas.style.maxWidth = "100%";
+    canvas.style.height = "auto";
+    canvas.style.aspectRatio = "1 / 1";
     canvas.width = Math.floor(size * dpr);
     canvas.height = Math.floor(size * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);

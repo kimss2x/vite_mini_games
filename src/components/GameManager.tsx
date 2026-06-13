@@ -72,7 +72,7 @@ const GameManager: React.FC<GameManagerProps> = ({
           color: colors.textPrimary,
           border: 'none',
           borderRadius: 12,
-          padding: `${spacing.sm} ${spacing.md}`,
+          padding: `${spacing.sm}px ${spacing.md}px`,
           fontSize: 14,
           fontWeight: 600,
           cursor: 'pointer',
@@ -104,7 +104,7 @@ const GameManager: React.FC<GameManagerProps> = ({
         }}
       >
         
-        {/* 상단 영역 - 파란색 박스 (게임 상태/점수) */}
+        {/* 상단 영역 - 게임 상태/점수 */}
         <div
           style={{
             background: colors.panelBackground,
@@ -113,8 +113,8 @@ const GameManager: React.FC<GameManagerProps> = ({
             width: '100%',
             boxSizing: 'border-box',
             maxWidth: `min(${layout.maxWidth}px, 100%)`,
-            border: `2px solid ${colors.accent}`,
-            boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+            border: `2px solid ${colors.canvasBorder}`,
+            boxShadow: '0 4px 20px rgba(112, 78, 42, 0.14)',
           }}
         >
           {/* 게임 타이틀 */}
@@ -154,14 +154,14 @@ const GameManager: React.FC<GameManagerProps> = ({
           )}
         </div>
 
-        {/* 중앙 게임 캔버스 영역 - 빨간색 박스 */}
+        {/* 중앙 게임 캔버스 영역 */}
         <div
           style={{
             background: colors.canvasBackground,
             borderRadius: 16,
             padding: 'clamp(8px, 2.6vw, 16px)',
             border: `2px solid ${colors.canvasBorder}`,
-            boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+            boxShadow: '0 8px 32px rgba(112, 78, 42, 0.18)',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -174,7 +174,7 @@ const GameManager: React.FC<GameManagerProps> = ({
           {children}
         </div>
 
-        {/* 하단 영역 - 녹색 박스 (조작법/기능 버튼) */}
+        {/* 하단 영역 - 조작법/기능 버튼 */}
         <div
           style={{
             background: colors.panelBackground,
@@ -183,8 +183,8 @@ const GameManager: React.FC<GameManagerProps> = ({
             width: '100%',
             boxSizing: 'border-box',
             maxWidth: `min(${layout.maxWidth}px, 100%)`,
-            border: `2px solid ${colors.success}`,
-            boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+            border: `2px solid ${colors.canvasBorder}`,
+            boxShadow: '0 4px 20px rgba(112, 78, 42, 0.14)',
           }}
         >
           

@@ -92,6 +92,7 @@ export const canvasStyle: React.CSSProperties = {
   borderRadius: 14,
   touchAction: "none",
   width: "100%",
+  maxWidth: "100%",
   height: "auto",
   display: "block"
 };

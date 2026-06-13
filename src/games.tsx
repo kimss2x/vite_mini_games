@@ -383,7 +383,7 @@ export const games = [
     title: '🐥 Crossy Road',
     tipName: 'Crossy Road',
     description: '차량을 피해 무한 도로를 건너 점수를 올리세요. WASD/←↑→↓ 이동, R 리셋.',
-    hotkey: 'y',
+    hotkey: '`',
     render: () => <CrossyRoadCanvas />,
   },
   {

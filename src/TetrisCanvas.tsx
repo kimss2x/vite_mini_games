@@ -131,7 +131,9 @@ export default function TetrisCanvas() {
       const widthCSS = MARGIN*2 + PANEL_W*2 + COLS*CELL;
       const heightCSS = MARGIN*2 + ROWS*CELL;
       canvas.style.width = widthCSS + "px";
-      canvas.style.height = heightCSS + "px";
+      canvas.style.maxWidth = "100%";
+      canvas.style.height = "auto";
+      canvas.style.aspectRatio = `${widthCSS} / ${heightCSS}`;
       canvas.width = Math.floor(widthCSS * dpr);
       canvas.height = Math.floor(heightCSS * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);

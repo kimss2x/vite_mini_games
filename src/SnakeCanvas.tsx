@@ -33,7 +33,9 @@ export default function SnakeCanvas() {
       const W = MARGIN * 2 + COLS * CELL;
       const H = MARGIN * 2 + ROWS * CELL;
       canvas.style.width = W + "px";
-      canvas.style.height = H + "px";
+      canvas.style.maxWidth = "100%";
+      canvas.style.height = "auto";
+      canvas.style.aspectRatio = `${W} / ${H}`;
       canvas.width = Math.floor(W * dpr);
       canvas.height = Math.floor(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
