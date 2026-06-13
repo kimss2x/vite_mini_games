@@ -4,6 +4,5 @@ pages_build_output_dir = "dist"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "noah_studio_mini_games"
+database_name = "noah-studio-mini-games-db"
 database_id = "dec0e130-ddc0-4bd5-8b33-f9ce98e87cf7"
-
