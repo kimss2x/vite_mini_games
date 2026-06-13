@@ -1,6 +1,8 @@
 import React from 'react';
 import { GameDefinition, GameId } from '../games';
 
+const FORMSPREE_FEEDBACK_ENDPOINT = 'https://formspree.io/f/mvznvepj';
+
 type Props = {
   games: readonly GameDefinition[];
   onSelect: (id: GameId) => void;
@@ -8,7 +10,38 @@ type Props = {
 
 export default function GameMenu({ games, onSelect }: Props) {
   const [showHowToPlay, setShowHowToPlay] = React.useState(false);
+  const [feedbackStatus, setFeedbackStatus] = React.useState<'idle' | 'success' | 'error'>(
+    'idle',
+  );
+  const [isSubmittingFeedback, setIsSubmittingFeedback] = React.useState(false);
   const firstGame = games[0];
+
+  const handleFeedbackSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setFeedbackStatus('idle');
+    setIsSubmittingFeedback(true);
+
+    try {
+      const response = await fetch(FORMSPREE_FEEDBACK_ENDPOINT, {
+        method: 'POST',
+        body: new FormData(event.currentTarget),
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Feedback request failed');
+      }
+
+      event.currentTarget.reset();
+      setFeedbackStatus('success');
+    } catch {
+      setFeedbackStatus('error');
+    } finally {
+      setIsSubmittingFeedback(false);
+    }
+  };
 
   const Card: React.FC<{ title: string; desc: string; onClick: () => void }> = ({
     title,
@@ -176,6 +209,137 @@ export default function GameMenu({ games, onSelect }: Props) {
             </span>
           ))}
         </div>
+
+        <section
+          aria-labelledby="feedback-title"
+          style={{
+            display: 'grid',
+            gap: 14,
+            background: 'rgba(255, 250, 235, 0.82)',
+            border: '2px solid rgba(196, 132, 75, 0.24)',
+            borderRadius: 8,
+            padding: 'clamp(18px, 4vw, 24px)',
+            boxShadow: '0 10px 24px rgba(112, 78, 42, 0.12)',
+          }}
+        >
+          <div style={{ display: 'grid', gap: 6 }}>
+            <h2
+              id="feedback-title"
+              style={{
+                margin: 0,
+                color: '#6b4328',
+                fontSize: 'clamp(22px, 4.5vw, 30px)',
+                lineHeight: 1.1,
+              }}
+            >
+              Send Feedback
+            </h2>
+            <p style={{ margin: 0, color: '#7c6047', fontSize: 14, lineHeight: 1.5 }}>
+              Report a bug, tell us how the difficulty feels, or suggest a new mini game idea.
+            </p>
+          </div>
+
+          <form onSubmit={handleFeedbackSubmit} style={{ display: 'grid', gap: 12 }}>
+            <label style={{ display: 'grid', gap: 6, color: '#6b4328', fontWeight: 800 }}>
+              nickname
+              <input
+                name="nickname"
+                type="text"
+                autoComplete="nickname"
+                required
+                style={{
+                  width: '100%',
+                  boxSizing: 'border-box',
+                  border: '2px solid rgba(139, 93, 51, 0.2)',
+                  borderRadius: 8,
+                  padding: '11px 12px',
+                  background: '#fff9ea',
+                  color: '#5f442c',
+                  font: 'inherit',
+                  outlineColor: '#d97845',
+                }}
+              />
+            </label>
+
+            <label style={{ display: 'grid', gap: 6, color: '#6b4328', fontWeight: 800 }}>
+              feedback_type
+              <select
+                name="feedback_type"
+                required
+                defaultValue="bug"
+                style={{
+                  width: '100%',
+                  boxSizing: 'border-box',
+                  border: '2px solid rgba(139, 93, 51, 0.2)',
+                  borderRadius: 8,
+                  padding: '11px 12px',
+                  background: '#fff9ea',
+                  color: '#5f442c',
+                  font: 'inherit',
+                  outlineColor: '#d97845',
+                }}
+              >
+                <option value="bug">bug</option>
+                <option value="difficulty">difficulty</option>
+                <option value="idea">idea</option>
+                <option value="other">other</option>
+              </select>
+            </label>
+
+            <label style={{ display: 'grid', gap: 6, color: '#6b4328', fontWeight: 800 }}>
+              message
+              <textarea
+                name="message"
+                required
+                rows={4}
+                style={{
+                  width: '100%',
+                  boxSizing: 'border-box',
+                  resize: 'vertical',
+                  border: '2px solid rgba(139, 93, 51, 0.2)',
+                  borderRadius: 8,
+                  padding: '11px 12px',
+                  background: '#fff9ea',
+                  color: '#5f442c',
+                  font: 'inherit',
+                  lineHeight: 1.45,
+                  outlineColor: '#d97845',
+                }}
+              />
+            </label>
+
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+              <button
+                type="submit"
+                disabled={isSubmittingFeedback}
+                style={{
+                  border: 'none',
+                  borderRadius: 999,
+                  padding: '12px 20px',
+                  background: isSubmittingFeedback ? '#c9a17e' : '#d97845',
+                  color: '#fffaf0',
+                  fontWeight: 900,
+                  fontSize: 15,
+                  cursor: isSubmittingFeedback ? 'wait' : 'pointer',
+                  boxShadow: '0 10px 18px rgba(169, 94, 46, 0.2)',
+                }}
+              >
+                {isSubmittingFeedback ? 'Sending...' : 'Send'}
+              </button>
+
+              {feedbackStatus === 'success' && (
+                <span role="status" style={{ color: '#4f7f3c', fontWeight: 800 }}>
+                  Thank you. Your feedback was sent.
+                </span>
+              )}
+              {feedbackStatus === 'error' && (
+                <span role="alert" style={{ color: '#a64735', fontWeight: 800 }}>
+                  Feedback could not be sent. Please try again.
+                </span>
+              )}
+            </div>
+          </form>
+        </section>
       </div>
     </div>
   );
