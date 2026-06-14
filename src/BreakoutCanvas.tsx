@@ -453,6 +453,7 @@ const BreakoutCanvas: React.FC = () => {
       title="Breakout"
       gameIcon="🧱"
       gameStats={gameStats}
+      gameStatus={gameState === 'gameOver' ? '게임 오버' : gameState === 'levelComplete' ? '클리어!' : undefined}
       instructions={instructions}
       actionButtons={actionButtons}
     >

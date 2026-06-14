@@ -579,6 +579,7 @@ const MiniGolfCanvas: React.FC = () => {
       style={{ outline: 'none' }}
     >
       <GameLayout 
+        gameStatus={gameState === GameState.GAME_COMPLETE ? '클리어!' : gameState === GameState.HOLE_IN_ONE ? '승리!' : undefined}
         title="⛳ 미니골프"
         topInfo={topInfo}
         bottomInfo={bottomInfo}

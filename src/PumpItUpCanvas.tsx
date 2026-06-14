@@ -180,6 +180,7 @@ const PumpItUpCanvas: React.FC = () => {
 
   return (
     <GameLayout
+      gameStatus={state === 'over' ? '게임 오버' : undefined}
       title="🎵 Pump It Up"
       topInfo={<div>Score: {score} Misses: {misses}/{MAX_MISSES}</div>}
       bottomInfo={<div>Q W E R : Hit • Space : Reset</div>}

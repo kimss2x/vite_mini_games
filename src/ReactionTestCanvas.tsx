@@ -175,6 +175,7 @@ const ReactionTestCanvas: React.FC = () => {
       title="Reaction Test"
       gameIcon="⚡"
       gameStats={gameStats}
+      gameStatus={gameState === 'tooEarly' ? '게임 오버' : undefined}
       instructions={instructions}
       actionButtons={actionButtons}
     >

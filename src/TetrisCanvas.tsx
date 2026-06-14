@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import GameLayout from "./components/GameLayout";
 import GameCanvas from "./components/GameCanvas";
 import { spacing, typography } from "./theme/gameTheme";
@@ -117,6 +117,7 @@ function fallIntervalMs(level: number) {
 
 /** ───────────── 메인 컴포넌트 ───────────── */
 export default function TetrisCanvas() {
+  const [over, setOver] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const scoreRef = useRef<HTMLDivElement | null>(null);
   const infoRef = useRef<HTMLDivElement | null>(null);
@@ -169,6 +170,7 @@ export default function TetrisCanvas() {
       if (collides(cur)) {
         gameOver = true;
         paused = true;
+        setOver(true);
       }
       canHold = true;
     }
@@ -272,7 +274,7 @@ export default function TetrisCanvas() {
         const temp = hold;
         hold = curType;
         cur = { type: temp, x: Math.floor(COLS / 2) - 2, y: -1, rot: 0 };
-        if (collides(cur)) { gameOver = true; paused = true; }
+        if (collides(cur)) { gameOver = true; paused = true; setOver(true); }
       }
       canHold = false;
     }
@@ -317,7 +319,7 @@ export default function TetrisCanvas() {
     function reset() {
       for (let y = 0; y < ROWS; y++) board[y].fill(0);
       score = 0; lines = 0; level = 0;
-      hold = null; canHold = true; paused = false; gameOver = false;
+      hold = null; canHold = true; paused = false; gameOver = false; setOver(false);
       nextQ.length = 0; while (nextQ.length < 5) nextQ.push(bags.next().value as PieceType);
       spawn();
       dropTimer = 0;
@@ -559,6 +561,7 @@ export default function TetrisCanvas() {
 
   return (
     <GameLayout 
+      gameStatus={over ? '게임 오버' : undefined}
       title="🧱 테트리스"
       topInfo={topInfo}
       bottomInfo={bottomInfo}

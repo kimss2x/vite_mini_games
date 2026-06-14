@@ -20,6 +20,8 @@ interface GameManagerProps {
   
   // 선택적 콜백
   onBackToMenu?: () => void;
+  // 신기록 배지용 (선택)
+  score?: number;
 }
 
 /**
@@ -39,8 +41,30 @@ const GameManager: React.FC<GameManagerProps> = ({
   controls,
   instructions,
   actionButtons,
-  onBackToMenu
+  onBackToMenu,
+  score,
 }) => {
+  const [isNewRecord, setIsNewRecord] = React.useState(false);
+
+  const isGameOver = !!gameStatus && /오버|패배|실패|game[\s\-]?over/i.test(gameStatus);
+  const isVictory  = !!gameStatus && /승리|클리어|완료|이겼|victory|win/i.test(gameStatus);
+  const showOverlay = isGameOver || isVictory;
+
+  React.useEffect(() => {
+    if (!showOverlay || score === undefined || score <= 0) {
+      setIsNewRecord(false);
+      return;
+    }
+    const key = 'hs_' + title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+    const prev = Number(localStorage.getItem(key) ?? 0);
+    if (score > prev) {
+      localStorage.setItem(key, String(score));
+      setIsNewRecord(true);
+    } else {
+      setIsNewRecord(false);
+    }
+  }, [showOverlay, score, title]);
+
   const handleBackToMenu = () => {
     if (onBackToMenu) {
       onBackToMenu();
@@ -169,9 +193,52 @@ const GameManager: React.FC<GameManagerProps> = ({
             boxSizing: 'border-box',
             maxWidth: `min(${layout.maxWidth}px, 100%)`,
             overflow: 'hidden',
+            position: 'relative',
           }}
         >
           {children}
+
+          {/* ── 게임 오버 / 승리 오버레이 ── */}
+          {showOverlay && (
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 12,
+                background: isVictory
+                  ? 'rgba(15, 35, 15, 0.52)'
+                  : 'rgba(20, 8, 4, 0.68)',
+                pointerEvents: 'none',
+              }}
+            >
+              <img
+                src={isVictory ? '/images/ui/victory-banner.png' : '/images/ui/game-over-banner.png'}
+                alt={isVictory ? '승리' : '게임 오버'}
+                style={{
+                  maxWidth: '78%',
+                  maxHeight: 'clamp(72px, 22cqh, 160px)',
+                  objectFit: 'contain',
+                  filter: 'drop-shadow(0 4px 18px rgba(0,0,0,0.55))',
+                }}
+              />
+              {isNewRecord && (
+                <img
+                  src="/images/ui/new-record-badge.png"
+                  alt="New Record"
+                  style={{
+                    maxWidth: '40%',
+                    maxHeight: 'clamp(48px, 14cqh, 100px)',
+                    objectFit: 'contain',
+                    filter: 'drop-shadow(0 2px 10px rgba(0,0,0,0.45))',
+                  }}
+                />
+              )}
+            </div>
+          )}
         </div>
 
         {/* 하단 영역 - 조작법/기능 버튼 */}

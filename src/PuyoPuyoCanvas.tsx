@@ -256,6 +256,7 @@ const PuyoPuyoCanvas: React.FC = () => {
 
   return (
     <GameLayout
+      gameStatus={state === 'over' ? '게임 오버' : undefined}
       title="🍡 Puyo Puyo"
       topInfo={<div>Score: {score}</div>}
       bottomInfo={<div>A/D 좌우, S 아래, Space 하드드롭, W 회전, R=Reset</div>}

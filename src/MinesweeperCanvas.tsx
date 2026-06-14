@@ -186,6 +186,7 @@ const MinesweeperCanvas: React.FC = () => {
 
   return (
     <GameLayout
+      gameStatus={state === 'won' ? '클리어!' : state === 'lost' ? '게임 오버' : undefined}
       title="💣 Minesweeper"
       topInfo={<div>Flags: {flags}/{MINES}</div>}
       bottomInfo={<div>좌클릭: 열기, 우클릭: 깃발, R=Reset</div>}

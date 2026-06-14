@@ -225,6 +225,7 @@ const ColumnsCanvas: React.FC = () => {
 
   return (
     <GameLayout
+      gameStatus={state === 'over' ? '게임 오버' : undefined}
       title="🔶 Columns"
       topInfo={<div>Score: {score}</div>}
       bottomInfo={<div>A/D 좌우, S 아래, W 색순환, Space 즉시드랍, R=Reset</div>}

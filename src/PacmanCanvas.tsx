@@ -661,6 +661,7 @@ const PacmanCanvas: React.FC = () => {
 
   return (
     <GameLayout
+      gameStatus={state === 'clear' ? '클리어!' : state === 'over' ? '게임 오버' : undefined}
       title="🟡 Pac-Man"
       topInfo={
         <div>

@@ -274,7 +274,8 @@ export default function TicTacToeCanvas() {
   );
 
   return (
-    <GameLayout 
+    <GameLayout
+      gameStatus={winner ? (winner === 'Draw' ? '게임 오버' : '승리!') : undefined} 
       title="⭕ 틱택토"
       topInfo={topInfo}
       bottomInfo={bottomInfo}

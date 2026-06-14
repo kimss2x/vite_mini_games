@@ -223,6 +223,7 @@ const SpaceInvadersCanvas: React.FC = () => {
       title="Space Invaders"
       gameIcon="👾"
       gameStats={gameStats}
+      gameStatus={gameState === 'won' ? '승리!' : gameState === 'gameover' ? '게임 오버' : undefined}
       instructions={instructions}
       actionButtons={actionButtons}
     >

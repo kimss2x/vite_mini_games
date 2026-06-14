@@ -135,6 +135,7 @@ const TowerBuilderCanvas: React.FC<{ width?: number; height?: number }> = ({ wid
       title="Tower Builder"
       gameIcon="🏗️"
       gameStats={gameStats}
+      gameStatus={status || undefined}
       instructions={instructions}
     >
       <GameCanvas

@@ -184,7 +184,7 @@ const FroggerCanvas: React.FC = () => {
       instructions={<div>방향키로 이동하여 위쪽으로 건너가세요</div>}
     >
       <GameCanvas
-        gameTitle="frogger"
+          gameTitle="frogger"
         ref={canvasRef}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}

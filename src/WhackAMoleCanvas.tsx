@@ -108,6 +108,7 @@ const WhackAMoleCanvas: React.FC = () => {
       title="Whack-a-Mole"
       gameIcon="🐹"
       gameStats={gameStats}
+      gameStatus={!running ? '게임 오버' : undefined}
       instructions={instructions}
       actionButtons={actionButtons}
     >

@@ -407,6 +407,7 @@ const FlappyBirdCanvas: React.FC = () => {
       title="Flappy Bird"
       gameIcon="🐦"
       gameStats={gameStats}
+      gameStatus={gameState === 'gameOver' ? '게임 오버' : undefined}
       instructions={instructions}
       actionButtons={actionButtons}
     >

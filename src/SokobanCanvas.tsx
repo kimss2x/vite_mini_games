@@ -619,7 +619,8 @@ const SokobanCanvas: React.FC = () => {
   );
 
   return (
-    <GameLayout 
+    <GameLayout
+      gameStatus={gameState.isCompleted ? '클리어!' : undefined} 
       title="🚚 소코반"
       topInfo={topInfo}
       bottomInfo={bottomInfo}

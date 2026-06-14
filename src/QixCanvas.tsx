@@ -224,6 +224,7 @@ export default function QixCanvas() {
 
   return (
     <GameLayout
+      gameStatus={state === 'clear' ? '클리어!' : state === 'over' ? '게임 오버' : undefined}
       title="❌ Qix"
       topInfo={
         <div>

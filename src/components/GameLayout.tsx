@@ -7,6 +7,9 @@ interface GameLayoutProps {
   topInfo?: React.ReactNode;
   bottomInfo?: React.ReactNode;
   onBackToMenu?: () => void;
+  // 게임오버/승리 배너 오버레이용 (GameManager로 전달)
+  gameStatus?: string;
+  score?: number;
 }
 
 /**
@@ -18,6 +21,8 @@ const GameLayout: React.FC<GameLayoutProps> = ({
   topInfo,
   bottomInfo,
   onBackToMenu,
+  gameStatus,
+  score,
 }) => {
   return (
     <GameManager
@@ -25,6 +30,8 @@ const GameLayout: React.FC<GameLayoutProps> = ({
       gameStats={topInfo}
       instructions={bottomInfo}
       onBackToMenu={onBackToMenu}
+      gameStatus={gameStatus}
+      score={score}
     >
       {children}
     </GameManager>

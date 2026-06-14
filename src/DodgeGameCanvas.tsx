@@ -298,6 +298,7 @@ const DodgeGameCanvas: React.FC = () => {
       title="Dodge Game"
       gameIcon="🚫"
       gameStats={gameStats}
+      gameStatus={gameState === 'gameOver' ? '게임 오버' : undefined}
       instructions={instructions}
       actionButtons={actionButtons}
     >

@@ -30,7 +30,6 @@ function GameLoading() {
 
 export default function App() {
   const [game, setGame] = useState<GameView>('menu');
-  // Reflect active game in the browser title
   useEffect(() => {
     const base = 'Mini Games';
     if (game === 'menu') document.title = base;
@@ -39,7 +38,6 @@ export default function App() {
       document.title = current ? `${current.title} - ${base}` : base;
     }
   }, [game]);
-  // Allow exiting any game with Escape
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setGame('menu');
@@ -48,15 +46,12 @@ export default function App() {
     return () => window.removeEventListener('keydown', onEsc);
   }, []);
 
-  // Enable hotkeys only when the menu is active so game controls aren't blocked
   useEffect(() => {
     if (game !== 'menu') return;
-
     const hotkeyMap: Record<string, GameId> = {};
     games.forEach((g) => {
       hotkeyMap[g.hotkey.toLowerCase()] = g.id;
     });
-
     const onKey = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey || e.altKey || e.shiftKey || e.repeat) return;
       const target = e.target as HTMLElement | null;
@@ -75,7 +70,6 @@ export default function App() {
         setGame(id);
       }
     };
-
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [game]);

@@ -284,6 +284,7 @@ const WatermelonCanvas: React.FC = () => {
       title="Watermelon Game"
       gameIcon="🍉"
       gameStats={gameStats}
+      gameStatus={gameOver ? '게임 오버' : undefined}
       instructions={instructions}
       actionButtons={actionButtons}
     >

@@ -243,7 +243,7 @@ const MatchThreeCanvas: React.FC = () => {
       <GameCanvas
         ref={canvasRef}
         gameTitle="Match-3"
-        width={WIDTH}
+              width={WIDTH}
         height={HEIGHT}
         onClick={handleClick}
       />
@@ -255,4 +255,3 @@ const MatchThreeCanvas: React.FC = () => {
 };
 
 export default MatchThreeCanvas;
-

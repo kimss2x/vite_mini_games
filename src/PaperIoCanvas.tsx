@@ -178,6 +178,7 @@ export default function PaperIoCanvas() {
 
   return (
     <GameLayout
+      gameStatus={state === 'over' ? '게임 오버' : undefined}
       title="📄 Paper.io"
       topInfo={<div>Score: {score}</div>}
       bottomInfo={<div>WASD/Arrow 이동, R=Reset</div>}

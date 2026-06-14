@@ -499,7 +499,7 @@ export default function PingPongCanvas({ width, height }: Props) {
       title="Noah Ping Pong Garden"
       gameIcon="✦"
       gameStats={gameStats}
-      gameStatus={finalScore ? "별 씨앗이 정원 끝에 도착했어요" : "AI와 별 씨앗 핑퐁 대결"}
+      gameStatus={finalScore ? (finalScore.player >= WIN_SCORE ? '승리!' : '게임 오버') : undefined}
       instructions={instructions}
       actionButtons={actionButtons}
     >

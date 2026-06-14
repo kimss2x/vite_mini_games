@@ -439,7 +439,8 @@ const Game2048Canvas: React.FC = () => {
       tabIndex={0}
       style={{ outline: 'none' }}
     >
-      <GameLayout 
+      <GameLayout
+      gameStatus={gameState === 'won' ? '승리!' : gameState === 'gameOver' ? '게임 오버' : undefined} 
         title="🔢 2048"
         topInfo={topInfo}
         bottomInfo={bottomInfo}

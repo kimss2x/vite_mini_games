@@ -313,7 +313,8 @@ const BubbleShooterCanvas: React.FC = () => {
   const instructions = '마우스로 조준하고 클릭하여 버블을 발사하세요. R로 리셋.';
 
   return (
-    <GameLayout title="Bubble Shooter" topInfo={topInfo} bottomInfo={instructions}>
+    <GameLayout
+      gameStatus={state === 'over' ? '게임 오버' : undefined} title="Bubble Shooter" topInfo={topInfo} bottomInfo={instructions}>
       <GameCanvas
         ref={canvasRef}
         gameTitle="Bubble Shooter"

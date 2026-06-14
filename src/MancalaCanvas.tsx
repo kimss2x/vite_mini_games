@@ -20,10 +20,12 @@ const MancalaCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [board, setBoard] = useState<Board>(() => initBoard());
   const [turn, setTurn] = useState<0 | 1>(0); // 0 bottom, 1 top
+  const [winner, setWinner] = useState<0 | 1 | 'draw' | null>(null);
 
   const reset = useCallback(() => {
     setBoard(initBoard());
     setTurn(0);
+    setWinner(null);
   }, []);
 
   const handlePit = useCallback(
@@ -56,6 +58,7 @@ const MancalaCanvas: React.FC = () => {
       if (end) {
         for (let p = 0; p < PITS; p++) b[6] += b[p], b[p] = 0;
         for (let p = 7; p < 7 + PITS; p++) b[13] += b[p], b[p] = 0;
+        setWinner(b[6] > b[13] ? 0 : b[13] > b[6] ? 1 : 'draw');
       }
       setBoard(b);
       if (i !== myStore && !end) setTurn(turn === 0 ? 1 : 0);
@@ -121,7 +124,9 @@ const MancalaCanvas: React.FC = () => {
   }, [reset]);
 
   return (
-    <GameLayout title="Mancala" bottomInfo={['자기 구멍 클릭, R: 리셋']}>
+    <GameLayout
+      gameStatus={winner === null ? undefined : winner === 0 ? '승리!' : '게임 오버'}
+      title="Mancala" bottomInfo={['자기 구멍 클릭, R: 리셋']}>
       <GameCanvas
         ref={canvasRef}
         width={WIDTH}

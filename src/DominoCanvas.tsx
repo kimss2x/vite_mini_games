@@ -201,7 +201,8 @@ const DominoCanvas: React.FC = () => {
     '빈칸 클릭: 도미노 배치/제거, 시작 도미노 클릭 또는 Space: 시작, R: 리셋';
 
   return (
-    <GameLayout title="Domino Topple" topInfo={topInfo} bottomInfo={instructions}>
+    <GameLayout
+      gameStatus={goalHit ? '클리어!' : undefined} title="Domino Topple" topInfo={topInfo} bottomInfo={instructions}>
       <GameCanvas
         ref={canvasRef}
         gameTitle="Domino Topple"

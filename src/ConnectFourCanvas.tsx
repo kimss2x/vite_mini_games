@@ -528,7 +528,8 @@ const ConnectFourCanvas: React.FC = () => {
       tabIndex={0}
       style={{ outline: 'none' }}
     >
-      <GameLayout 
+      <GameLayout
+      gameStatus={gameState === GameState.HUMAN_WIN ? '승리!' : (gameState === GameState.AI_WIN || gameState === GameState.DRAW) ? '게임 오버' : undefined} 
         title="🔴 Connect Four"
         topInfo={topInfo}
         bottomInfo={bottomInfo}
@@ -540,7 +541,7 @@ const ConnectFourCanvas: React.FC = () => {
           onClick={gameState !== GameState.PLAYING ? restartGame : handleCanvasClick}
           onMouseMove={handleCanvasMouseMove}
           gameTitle="Connect Four"
-          style={{
+                   style={{
             cursor: 'pointer',
             border: "2px solid rgba(255,255,255,0.1)"
           }}

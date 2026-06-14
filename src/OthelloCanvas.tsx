@@ -154,6 +154,7 @@ const OthelloCanvas: React.FC = () => {
 
   return (
     <GameLayout
+      gameStatus={gameOver ? (blackCount === whiteCount ? '게임 오버' : '승리!') : undefined}
       title="Othello"
       bottomInfo={[`흑: ${blackCount} 백: ${whiteCount}`, status, '돌을 놓아 뒤집으세요. R: 리셋']}
     >

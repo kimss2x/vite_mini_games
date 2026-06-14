@@ -148,6 +148,7 @@ const HextrisCanvas: React.FC = () => {
 
   return (
     <GameLayout
+      gameStatus={state === 'over' ? '게임 오버' : undefined}
       title="🔷 Hextris"
       topInfo={<div>Score: {score}</div>}
       bottomInfo={<div>좌우 키(A/D)로 회전, W/S로 뒤집기. R=Reset</div>}

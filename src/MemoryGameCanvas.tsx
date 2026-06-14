@@ -465,6 +465,7 @@ const MemoryGameCanvas: React.FC = () => {
       title="Memory Card Matching"
       gameIcon="🧠"
       gameStats={gameStats}
+      gameStatus={gameState === 'won' ? '클리어!' : undefined}
       controls={controls}
       instructions={instructions}
       actionButtons={actionButtons}

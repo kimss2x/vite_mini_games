@@ -240,6 +240,7 @@ const MastermindCanvas: React.FC = () => {
 
   return (
     <GameLayout
+      gameStatus={gameState === 'won' ? '승리!' : gameState === 'lost' ? '게임 오버' : undefined}
       title="🧠 Mastermind"
       topInfo={<div>시도: {currentRow + 1}/{ROWS}</div>}
       bottomInfo={<div>팔레트에서 색을 선택해 조합을 맞추세요. Submit으로 확인, Z=Undo, R=Reset</div>}

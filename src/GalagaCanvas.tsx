@@ -257,6 +257,7 @@ const GalagaCanvas: React.FC = () => {
       title="Galaga"
       gameIcon="🚀"
       gameStats={gameStats}
+      gameStatus={state === 'won' ? '승리!' : state === 'gameover' ? '게임 오버' : undefined}
       instructions={instructions}
       actionButtons={actionButtons}
     >

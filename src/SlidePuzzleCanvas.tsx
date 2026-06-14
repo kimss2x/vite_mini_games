@@ -413,7 +413,8 @@ const SlidePuzzleCanvas: React.FC = () => {
       tabIndex={0}
       style={{ outline: 'none' }}
     >
-      <GameLayout 
+      <GameLayout
+      gameStatus={gameState === 'won' ? '클리어!' : undefined} 
         title="🧩 15퍼즐"
         topInfo={topInfo}
         bottomInfo={bottomInfo}

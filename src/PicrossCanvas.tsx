@@ -196,6 +196,7 @@ const PicrossCanvas: React.FC = () => {
 
   return (
     <GameLayout
+      gameStatus={state === 'won' ? '클리어!' : undefined}
       title="🖼️ Picross"
       bottomInfo={<div>좌클릭: 칸 채우기, 우클릭: X, R=Reset</div>}
     >
