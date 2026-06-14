@@ -461,6 +461,13 @@ const ConnectFourCanvas: React.FC = () => {
     }
   }, []);
 
+  // 언마운트 시 진행 중인 애니메이션 정리
+  useEffect(() => {
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, []);
+
   const getGameStatusText = () => {
     if (gameState === GameState.HUMAN_WIN) return '🔴 당신이 승리했습니다!';
     if (gameState === GameState.AI_WIN) return '🔵 AI가 승리했습니다!';

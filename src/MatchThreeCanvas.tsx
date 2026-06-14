@@ -75,6 +75,7 @@ function createBoard(): Board {
 
 const MatchThreeCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const rafRef = useRef<number>(0);
   const [board, setBoard] = useState<Board>(() => createBoard());
   const [selected, setSelected] = useState<[number, number] | null>(null);
   const [score, setScore] = useState(0);
@@ -159,12 +160,12 @@ const MatchThreeCanvas: React.FC = () => {
             ctx.strokeStyle = '#111';
             ctx.strokeRect(tx, ty, TILE, TILE);
             if (progress < 1) {
-              requestAnimationFrame(step);
+              rafRef.current = requestAnimationFrame(step);
             } else {
               resolve();
             }
           };
-          requestAnimationFrame(step);
+          rafRef.current = requestAnimationFrame(step);
         });
       animate().then(() => {
         const resolved = swapped.map(row => row.slice());
@@ -225,6 +226,13 @@ const MatchThreeCanvas: React.FC = () => {
     window.addEventListener('keydown', handleKey, { capture: true });
     return () => window.removeEventListener('keydown', handleKey, { capture: true });
   }, [resetGame]);
+
+  // 언마운트 시 진행 중인 애니메이션 정리
+  useEffect(() => {
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   return (
     <GameLayout

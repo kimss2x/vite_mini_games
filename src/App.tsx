@@ -1,8 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import GameMenu from './components/GameMenu';
 import { games, GameId } from './games';
 
 type GameView = GameId | 'menu';
+
+// 게임 청크 로딩 중 보여줄 따뜻한 스토리북 스타일 폴백
+function GameLoading() {
+  return (
+    <div
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 12,
+        background: '#fbf3e2',
+        color: '#8a5a32',
+        fontSize: 18,
+        fontWeight: 600,
+        fontFamily: 'inherit',
+      }}
+    >
+      <div style={{ fontSize: 40 }}>🌱</div>
+      <div>게임을 불러오는 중...</div>
+    </div>
+  );
+}
 
 export default function App() {
   const [game, setGame] = useState<GameView>('menu');
@@ -61,5 +85,6 @@ export default function App() {
   }
 
   const current = games.find((g) => g.id === game);
-  return current ? current.render() : null;
+  if (!current) return null;
+  return <Suspense fallback={<GameLoading />}>{current.render()}</Suspense>;
 }

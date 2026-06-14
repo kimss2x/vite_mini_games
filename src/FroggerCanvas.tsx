@@ -65,6 +65,10 @@ const FroggerCanvas: React.FC = () => {
 
   const handleKey = useCallback((e: KeyboardEvent) => {
     if (gameState !== 'playing') return;
+    // 방향키로 페이지가 스크롤되지 않도록 차단
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      e.preventDefault();
+    }
     const frog = frogRef.current;
     switch (e.key) {
       case 'ArrowUp':
