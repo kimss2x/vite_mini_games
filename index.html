@@ -5,25 +5,34 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
     <!-- Primary meta -->
-    <title>Noah Studio Mini Games</title>
-    <meta name="description" content="작은 이야기와 귀여운 게임이 자라는 Noah Studio의 미니게임 공간입니다." />
+    <title>Noah Studio Mini Games — 브라우저 오리지널 미니게임 모음</title>
+    <meta name="description" content="Noah Studio Mini Games는 브라우저에서 바로 즐기는 오리지널 창작 미니게임 모음입니다. 아케이드, 퍼즐, 전략, 리듬, 캐주얼 등 50개 이상의 게임을 무료로 즐겨보세요. No download, no login." />
+    <meta name="keywords" content="mini games, browser games, arcade, puzzle, strategy, reflex, rhythm, casual, noah studio, 미니게임, 브라우저 게임" />
+    <meta name="author" content="Noah Studio" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://vite-mini-games.pages.dev/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Noah Studio" />
-    <meta property="og:title" content="Noah Studio Mini Games" />
-    <meta property="og:description" content="작은 이야기와 귀여운 게임이 자라는 Noah Studio의 미니게임 공간입니다." />
-    <meta property="og:image" content="/images/brand/og-cover.webp" />
+    <meta property="og:site_name" content="Noah Studio Mini Games" />
+    <meta property="og:title" content="Noah Studio Mini Games — 브라우저 오리지널 미니게임 모음" />
+    <meta property="og:description" content="브라우저에서 바로 즐기는 오리지널 창작 미니게임 50종 이상. 아케이드, 퍼즐, 전략, 리듬, 캐주얼 게임을 무료로 즐겨보세요." />
+    <meta property="og:image" content="https://vite-mini-games.pages.dev/images/brand/og-cover.webp" />
+    <meta property="og:url" content="https://vite-mini-games.pages.dev/" />
+    <meta property="og:locale" content="ko_KR" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Noah Studio Mini Games" />
-    <meta name="twitter:description" content="작은 이야기와 귀여운 게임이 자라는 Noah Studio의 미니게임 공간입니다." />
-    <meta name="twitter:image" content="/images/brand/og-cover.webp" />
+    <meta name="twitter:description" content="브라우저에서 바로 즐기는 오리지널 창작 미니게임 50종 이상." />
+    <meta name="twitter:image" content="https://vite-mini-games.pages.dev/images/brand/og-cover.webp" />
 
     <!-- Icons -->
     <link rel="icon" href="/images/brand/profile-icon.webp" type="image/webp" />
     <link rel="apple-touch-icon" href="/images/brand/profile-icon.webp" />
+
+    <!-- AdSense ready: add <script> tag here when approved -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
 
     <style>
       :root { color-scheme: light; }
@@ -38,9 +47,32 @@
       body { min-width: 320px; }
       * { box-sizing: border-box; }
       #root { min-height: 100%; width: 100%; }
+
+      /* Accessibility: visible focus rings */
+      :focus-visible {
+        outline: 3px solid #d97845;
+        outline-offset: 2px;
+      }
+
+      /* Skip to main content link for screen readers */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #d97845;
+        color: #fff;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 0 0 8px 0;
+        font-weight: 700;
+        z-index: 9999;
+        transition: top 0.15s;
+      }
+      .skip-link:focus { top: 0; }
     </style>
   </head>
   <body>
+    <a class="skip-link" href="#root">메인 콘텐츠로 건너뛰기 / Skip to main content</a>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
