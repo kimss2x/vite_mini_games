@@ -74,6 +74,8 @@ const NAV_PAGES = [
   { id: 'terms', label: 'Terms' },
 ];
 
+const NOAH_STUDIO_URL = 'https://noah-studio.net/';
+
 export default function PageLayout({ children, currentPage, onNavigate }: PageLayoutProps) {
   return (
     <div
@@ -117,6 +119,13 @@ export default function PageLayout({ children, currentPage, onNavigate }: PageLa
             padding: '6px 10px',
           }}
         >
+          <a
+            className="ns-page-nav-btn"
+            href={NOAH_STUDIO_URL}
+            aria-label="Noah Studio 공식 사이트로 돌아가기"
+          >
+            ← Noah Studio로 돌아가기
+          </a>
           <button
             className="ns-page-nav-btn"
             onClick={() => onNavigate('menu')}
@@ -157,6 +166,12 @@ export default function PageLayout({ children, currentPage, onNavigate }: PageLa
             aria-label="Footer links"
             style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}
           >
+            <a
+              href={NOAH_STUDIO_URL}
+              style={{ color: '#a08060', fontSize: 13, padding: '4px 0', textDecoration: 'none' }}
+            >
+              Noah Studio로 돌아가기
+            </a>
             {NAV_PAGES.map(({ id, label }) => (
               <button
                 key={id}

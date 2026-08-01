@@ -35,16 +35,23 @@ export default function PrivacyPage({ onNavigate }: Props) {
             Privacy Policy
           </h1>
           <p style={{ margin: '12px 0 0', color: '#8a6a4b', fontSize: 13 }}>
-            Last updated: June 2025
+            Last updated: August 2, 2026
           </p>
         </header>
 
         <section className="ns-section">
           <h2>Overview</h2>
           <p>
-            Noah Studio Mini Games (<strong>vite-mini-games.pages.dev</strong>) is committed to protecting
-            your privacy. This policy explains what information we may collect, how we use it, and your choices
-            regarding that information. By using this site, you agree to the practices described below.
+            Noah Studio operates Noah Studio Mini Games at{' '}
+            <a href="https://games.noah-studio.net/" style={{ color: '#d97845' }}>
+              games.noah-studio.net
+            </a>{' '}
+            as part of its official creative services. The official Noah Studio website is{' '}
+            <a href="https://noah-studio.net/" style={{ color: '#d97845' }}>
+              noah-studio.net
+            </a>
+            . This policy explains what information we may collect, how we use it, and your choices regarding
+            that information. By using this site, you agree to the practices described below.
           </p>
         </section>
 

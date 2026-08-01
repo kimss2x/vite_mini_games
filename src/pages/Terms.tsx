@@ -35,16 +35,23 @@ export default function TermsPage({ onNavigate }: Props) {
             Terms &amp; Disclaimer
           </h1>
           <p style={{ margin: '12px 0 0', color: '#8a6a4b', fontSize: 13 }}>
-            Last updated: June 2025
+            Last updated: August 2, 2026
           </p>
         </header>
 
         <section className="ns-section">
           <h2>Acceptance of Terms</h2>
           <p>
-            By accessing and using Noah Studio Mini Games (<strong>vite-mini-games.pages.dev</strong>), you
-            accept and agree to be bound by these terms and conditions. If you do not agree, please do not
-            use this site.
+            Noah Studio operates Noah Studio Mini Games at{' '}
+            <a href="https://games.noah-studio.net/" style={{ color: '#d97845' }}>
+              games.noah-studio.net
+            </a>{' '}
+            as part of its official services. The official Noah Studio website is{' '}
+            <a href="https://noah-studio.net/" style={{ color: '#d97845' }}>
+              noah-studio.net
+            </a>
+            . By accessing and using this service, you accept and agree to be bound by these terms and
+            conditions. If you do not agree, please do not use this site.
           </p>
         </section>
 

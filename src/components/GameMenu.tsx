@@ -3,6 +3,7 @@ import { GameDefinition, GameId, GameCategory, GAME_CATEGORIES } from '../games'
 import AdPlaceholder from './AdPlaceholder';
 
 const FORMSPREE_FEEDBACK_ENDPOINT = 'https://formspree.io/f/mvznvepj';
+const NOAH_STUDIO_URL = 'https://noah-studio.net/';
 
 const GAME_ICONS: Partial<Record<GameId, string>> = {
   pingpong:      '/images/icons/noah-ping-pong-garden.png',
@@ -253,6 +254,15 @@ export default function GameMenu({ games, onSelect }: Props) {
 
       <div style={{ display: 'grid', gap: 24, width: '100%', maxWidth: 960, padding: 'clamp(16px, 5vw, 40px)' }}>
 
+        <a
+          href={NOAH_STUDIO_URL}
+          className="ns-btn-secondary"
+          aria-label="Noah Studio 공식 사이트로 돌아가기"
+          style={{ display: 'inline-flex', alignItems: 'center', justifySelf: 'start', textDecoration: 'none' }}
+        >
+          ← Noah Studio로 돌아가기
+        </a>
+
         {/* ── Hero ── */}
         <div
           style={{
@@ -496,6 +506,7 @@ export default function GameMenu({ games, onSelect }: Props) {
           }}
         >
           <nav aria-label="Site pages" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '4px 16px' }}>
+            <a className="ns-footer-link" href={NOAH_STUDIO_URL}>Noah Studio로 돌아가기</a>
             <button className="ns-footer-link" onClick={() => onSelect('about')} aria-label="About Noah Studio Mini Games">About</button>
             <button className="ns-footer-link" onClick={() => onSelect('privacy')} aria-label="Privacy Policy">Privacy Policy</button>
             <button className="ns-footer-link" onClick={() => onSelect('contact')} aria-label="Contact us">Contact</button>
