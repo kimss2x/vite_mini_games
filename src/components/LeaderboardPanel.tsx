@@ -22,6 +22,7 @@ type Props = {
     player: number;
     ai: number;
   } | null;
+  turnstileSiteKey?: string;
 };
 
 declare global {
@@ -96,7 +97,7 @@ function ScoreList({ title, scores }: { title: string; scores: ScoreEntry[] }) {
   );
 }
 
-export default function LeaderboardPanel({ finalScore }: Props) {
+export default function LeaderboardPanel({ finalScore, turnstileSiteKey = TURNSTILE_SITE_KEY }: Props) {
   const [leaderboard, setLeaderboard] = useState<LeaderboardResponse>({
     today: [],
     all_time: [],
@@ -111,8 +112,8 @@ export default function LeaderboardPanel({ finalScore }: Props) {
 
   const score = finalScore?.player ?? 0;
   const canSubmit = useMemo(
-    () => Boolean(finalScore && nickname.trim() && turnstileToken && TURNSTILE_SITE_KEY),
-    [finalScore, nickname, turnstileToken]
+    () => Boolean(finalScore && nickname.trim() && turnstileToken && turnstileSiteKey),
+    [finalScore, nickname, turnstileToken, turnstileSiteKey]
   );
 
   const refreshLeaderboard = async () => {
@@ -137,14 +138,14 @@ export default function LeaderboardPanel({ finalScore }: Props) {
   }, []);
 
   useEffect(() => {
-    if (!finalScore || !TURNSTILE_SITE_KEY || !widgetRef.current) return;
+    if (!finalScore || !turnstileSiteKey || !widgetRef.current) return;
 
     let isMounted = true;
     loadTurnstileScript()
       .then(() => {
         if (!isMounted || !window.turnstile || !widgetRef.current || widgetIdRef.current) return;
         widgetIdRef.current = window.turnstile.render(widgetRef.current, {
-          sitekey: TURNSTILE_SITE_KEY,
+          sitekey: turnstileSiteKey,
           callback: (token) => {
             setTurnstileToken(token);
             setMessage('');
@@ -165,7 +166,7 @@ export default function LeaderboardPanel({ finalScore }: Props) {
         widgetIdRef.current = null;
       }
     };
-  }, [finalScore]);
+  }, [finalScore, turnstileSiteKey]);
 
   const submitScore = async () => {
     if (!finalScore) return;
@@ -227,6 +228,7 @@ export default function LeaderboardPanel({ finalScore }: Props) {
         >
           <strong>리더보드에 점수 남기기</strong>
           <input
+            aria-label="닉네임"
             value={nickname}
             onChange={(event) => setNickname(event.target.value)}
             maxLength={20}
@@ -242,11 +244,11 @@ export default function LeaderboardPanel({ finalScore }: Props) {
               outline: 'none',
             }}
           />
-          {TURNSTILE_SITE_KEY ? (
+          {turnstileSiteKey ? (
             <div ref={widgetRef} />
           ) : (
-            <div style={{ color: '#9b5f31', fontSize: 13, textAlign: 'center' }}>
-              `VITE_TURNSTILE_SITE_KEY`가 설정되면 점수 제출이 활성화됩니다.
+            <div role="status" style={{ color: '#9b5f31', fontSize: 13, textAlign: 'center' }}>
+              점수 제출 보안 설정이 아직 준비되지 않았습니다. 게임은 계속 플레이할 수 있습니다.
             </div>
           )}
           <button
@@ -288,4 +290,3 @@ export default function LeaderboardPanel({ finalScore }: Props) {
     </div>
   );
 }
-

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import GameManager from "./components/GameManager";
 import PureGameCanvas from "./components/PureGameCanvas";
 import GameButton from "./components/GameButton";
+import { addGameKeyboardListener } from './utils/gameKeyboard';
 
 /**
  * 간단한 오목 보드.
@@ -42,8 +43,7 @@ export default function OmokCanvas() {
         reset();
       }
     };
-    window.addEventListener("keydown", onKey, { capture: true });
-    return () => window.removeEventListener("keydown", onKey);
+    return addGameKeyboardListener('keydown', onKey);
   }, []);
 
   // 클릭으로 돌 두기
@@ -194,4 +194,3 @@ export default function OmokCanvas() {
     </GameManager>
   );
 }
-

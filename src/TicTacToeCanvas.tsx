@@ -3,6 +3,7 @@ import GameLayout from "./components/GameLayout";
 import GameCanvas from "./components/GameCanvas";
 import GameButton from "./components/GameButton";
 import { spacing, typography } from "./theme/gameTheme";
+import { addGameKeyboardListener } from './utils/gameKeyboard';
 
 /**
  * 틱택토(Tic-Tac-Toe) 게임
@@ -67,8 +68,7 @@ export default function TicTacToeCanvas() {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown, { capture: true });
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return addGameKeyboardListener('keydown', handleKeyDown);
   }, []);
 
   // 클릭 처리

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import GameLayout from "./components/GameLayout";
 import GameCanvas from "./components/GameCanvas";
 import { spacing, typography } from "./theme/gameTheme";
+import { addGameKeyboardListener } from './utils/gameKeyboard';
 
 /** ───────────── 설정 ───────────── */
 const COLS = 10;
@@ -314,7 +315,7 @@ export default function TetrisCanvas() {
       }
     };
 
-    window.addEventListener("keydown", onKeyDown, { capture: true });
+    const removeKeyDown = addGameKeyboardListener('keydown', onKeyDown);
 
     function reset() {
       for (let y = 0; y < ROWS; y++) board[y].fill(0);
@@ -513,7 +514,7 @@ export default function TetrisCanvas() {
     // 정리
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("keydown", onKeyDown);
+      removeKeyDown();
     };
   }, []);
 

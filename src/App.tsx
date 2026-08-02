@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState, Suspense } from 'react';
 import GameMenu from './components/GameMenu';
+import GameErrorBoundary from './components/GameErrorBoundary';
 import { games, GameId } from './games';
 
 // Static page components (lazy loaded)
@@ -132,5 +133,9 @@ export default function App() {
 
   const current = games.find((g) => g.id === view);
   if (!current) return null;
-  return <Suspense fallback={<LoadingFallback />}>{current.render()}</Suspense>;
+  return (
+    <GameErrorBoundary gameId={current.id} onBackToMenu={() => navigate('menu')}>
+      <Suspense fallback={<LoadingFallback />}>{current.render()}</Suspense>
+    </GameErrorBoundary>
+  );
 }

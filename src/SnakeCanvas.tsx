@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import GameManager from "./components/GameManager";
 import PureGameCanvas from "./components/PureGameCanvas";
 import GameButton from "./components/GameButton";
+import { addGameKeyboardListener } from './utils/gameKeyboard';
 
 /** ===== 설정 ===== */
 const COLS = 22;
@@ -156,7 +157,7 @@ export default function SnakeCanvas() {
         case "r": case "R": reset(); break;
       }
     };
-    window.addEventListener("keydown", onKey, { capture: true });
+    const removeKeyDown = addGameKeyboardListener('keydown', onKey);
 
     // 간단 스와이프(터치)
     let touchStart: Pt | null = null;
@@ -280,7 +281,7 @@ export default function SnakeCanvas() {
     // 정리
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("keydown", onKey);
+      removeKeyDown();
       canvas.removeEventListener("touchstart", onTouchStart);
       canvas.removeEventListener("touchend", onTouchEnd);
     };

@@ -3,6 +3,7 @@ import GameManager from './components/GameManager';
 import GameCanvas from './components/GameCanvas';
 import GameButton from './components/GameButton';
 import { spacing, typography } from './theme/gameTheme';
+import { addGameKeyboardListener } from './utils/gameKeyboard';
 
 interface Block {
   x: number;
@@ -232,15 +233,15 @@ const DodgeGameCanvas: React.FC = () => {
     canvas.width = CANVAS_WIDTH;
     canvas.height = CANVAS_HEIGHT;
 
-    window.addEventListener('keydown', handleKeyDown, { capture: true });
-    window.addEventListener('keyup', handleKeyUp, { capture: true });
+    const removeKeyDown = addGameKeyboardListener('keydown', handleKeyDown);
+    const removeKeyUp = addGameKeyboardListener('keyup', handleKeyUp, { filterInteractiveTargets: false });
 
     lastTimeRef.current = performance.now();
     animationFrameRef.current = requestAnimationFrame(gameLoop);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('keyup', handleKeyUp);
+      removeKeyDown();
+      removeKeyUp();
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }

@@ -3,6 +3,9 @@ import GameLayout from './components/GameLayout';
 import GameCanvas from './components/GameCanvas';
 import GameButton from './components/GameButton';
 import { spacing, typography } from './theme/gameTheme';
+import { useManagedTimeout } from './hooks/useManagedTimeout';
+import { usePausableAnimationFrame } from './hooks/usePausableAnimationFrame';
+import { addGameKeyboardListener } from './utils/gameKeyboard';
 
 interface Vector2 {
   x: number;
@@ -57,7 +60,8 @@ const POWER_SCALE = 0.3;
 const MiniGolfCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>(0);
+  const completionScheduledRef = useRef(false);
+  const { clear: clearCompletionTimeout, schedule: scheduleCompletion } = useManagedTimeout();
   
   const [gameState, setGameState] = useState<GameState>(GameState.AIMING);
   const [shots, setShots] = useState<number>(0);
@@ -229,14 +233,18 @@ const MiniGolfCanvas: React.FC = () => {
         newBall.vy = 0;
         setGameState(GameState.HOLE_IN_ONE);
         
-        setTimeout(() => {
-          setGameState(GameState.GAME_COMPLETE);
-        }, 2000);
+        if (!completionScheduledRef.current) {
+          completionScheduledRef.current = true;
+          scheduleCompletion(() => {
+            completionScheduledRef.current = false;
+            setGameState(GameState.GAME_COMPLETE);
+          }, 2000);
+        }
       }
       
       return newBall;
     });
-  }, [handleWallCollision, vectorLength, checkHoleCollision]);
+  }, [handleWallCollision, vectorLength, checkHoleCollision, scheduleCompletion]);
 
   // 마우스/터치 이벤트 처리
   const handleMouseDown = useCallback((event: React.MouseEvent<HTMLCanvasElement>) => {
@@ -301,6 +309,8 @@ const MiniGolfCanvas: React.FC = () => {
 
   // 게임 재시작
   const restartGame = useCallback(() => {
+    clearCompletionTimeout();
+    completionScheduledRef.current = false;
     setBall({
       x: 100,
       y: 500,
@@ -312,25 +322,7 @@ const MiniGolfCanvas: React.FC = () => {
     setGameState(GameState.AIMING);
     setShots(0);
     setIsDragging(false);
-  }, []);
-
-  // 게임 루프
-  useEffect(() => {
-    const gameLoop = () => {
-      if (gameState === GameState.BALL_MOVING) {
-        updateBall();
-      }
-      animationRef.current = requestAnimationFrame(gameLoop);
-    };
-
-    animationRef.current = requestAnimationFrame(gameLoop);
-    
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [gameState, updateBall]);
+  }, [clearCompletionTimeout]);
 
   // 캔버스 렌더링
   const draw = useCallback(() => {
@@ -485,14 +477,29 @@ const MiniGolfCanvas: React.FC = () => {
     }
   }, [ball, hole, obstacles, isDragging, dragCurrent, dragStart, gameState, shots, vectorLength, normalizeVector]);
 
-  // 캔버스 렌더링 루프
+  const gameStateRef = useRef(gameState);
+  const updateBallRef = useRef(updateBall);
+  const drawRef = useRef(draw);
+
   useEffect(() => {
-    const renderLoop = () => {
-      draw();
-      requestAnimationFrame(renderLoop);
-    };
-    renderLoop();
+    gameStateRef.current = gameState;
+  }, [gameState]);
+
+  useEffect(() => {
+    updateBallRef.current = updateBall;
+  }, [updateBall]);
+
+  useEffect(() => {
+    drawRef.current = draw;
   }, [draw]);
+
+  // 물리 업데이트와 렌더를 하나의 pause 가능한 RAF lifecycle로 관리합니다.
+  usePausableAnimationFrame(() => {
+    if (gameStateRef.current === GameState.BALL_MOVING) {
+      updateBallRef.current();
+    }
+    drawRef.current();
+  });
 
   // 키보드 이벤트 처리
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
@@ -504,8 +511,7 @@ const MiniGolfCanvas: React.FC = () => {
   }, [restartGame]);
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown, { capture: true });
-    return () => window.removeEventListener('keydown', handleKeyDown, { capture: true });
+    return addGameKeyboardListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
 
   // 컴포넌트 포커스
