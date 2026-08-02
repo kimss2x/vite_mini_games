@@ -30,6 +30,17 @@ npm run build
 npm run preview
 ```
 
+## 품질 검사
+
+```bash
+npm run lint
+npm test
+npm run test:smoke
+npm run build
+```
+
+`test:smoke`는 Chromium에서 46개 게임의 lazy import와 캔버스 렌더, Chess 모바일 viewport를 확인합니다.
+
 빌드 결과는 `dist/` 폴더에 생성됩니다.
 
 ## Cloudflare Pages 배포
@@ -90,6 +101,8 @@ Pages 환경 변수:
 copy .env.example .env
 copy .dev.vars.example .dev.vars
 ```
+
+운영 빌드에는 Cloudflare Pages의 Production Build variable로 `VITE_TURNSTILE_SITE_KEY`를 등록합니다. 실제 Site Key가 없는 빌드는 게임 플레이와 리더보드 조회는 유지하지만 점수 제출을 비활성화합니다.
 
 Cloudflare 문서 기준으로 Turnstile은 클라이언트 위젯만으로는 보호가 끝나지 않으므로, `POST /api/scores`에서 서버 측 Siteverify 검증을 수행합니다.
 

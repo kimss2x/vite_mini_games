@@ -107,7 +107,7 @@ const GameManager: React.FC<GameManagerProps> = ({
   };
 
   return (
-    <div style={{
+    <div data-testid="game-root" style={{
       minHeight: '100vh',
       background: colors.appBackground,
       display: 'flex',

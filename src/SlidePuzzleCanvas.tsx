@@ -330,7 +330,7 @@ const SlidePuzzleCanvas: React.FC = () => {
   // 초기 게임 설정
   useEffect(() => {
     restartGame();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   // 캔버스 렌더링
   useEffect(() => {
