@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import GameManager from "./components/GameManager";
 import LeaderboardPanel from "./components/LeaderboardPanel";
 import PureGameCanvas from "./components/PureGameCanvas";
+import { PING_PONG_RULES } from './gameRules';
+import { addGameKeyboardListener } from './utils/gameKeyboard';
 
 type Props = {
   width: number;
@@ -17,7 +19,7 @@ export default function PingPongCanvas({ width, height }: Props) {
   const [resetToken, setResetToken] = useState(0);
   const [copyStatus, setCopyStatus] = useState("");
 
-  const WIN_SCORE = 5;
+  const WIN_SCORE = PING_PONG_RULES.winScore;
 
   const restartGame = () => {
     gameOverRef.current = false;
@@ -200,8 +202,8 @@ export default function PingPongCanvas({ width, height }: Props) {
       if (e.touches && e.touches[0]) setPlayerByPointer(e.touches[0].clientY);
     };
 
-    window.addEventListener("keydown", onKeyDown, { capture: true });
-    window.addEventListener("keyup", onKeyUp, { capture: true });
+    const removeKeyDown = addGameKeyboardListener('keydown', onKeyDown);
+    const removeKeyUp = addGameKeyboardListener('keyup', onKeyUp, { filterInteractiveTargets: false });
     canvas.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("touchstart", onTouchStart, { passive: true });
     canvas.addEventListener("touchmove", onTouchMove, { passive: false });
@@ -414,8 +416,8 @@ export default function PingPongCanvas({ width, height }: Props) {
     // cleanup
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("keyup", onKeyUp);
+      removeKeyDown();
+      removeKeyUp();
       canvas.removeEventListener("mousemove", onMouseMove);
       canvas.removeEventListener("touchstart", onTouchStart);
       canvas.removeEventListener("touchmove", onTouchMove);

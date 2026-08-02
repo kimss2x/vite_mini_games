@@ -115,6 +115,7 @@ const ChessCanvas: React.FC = () => {
       const y = ((e.clientY - rect.top) / rect.height) * HEIGHT;
       const c = Math.floor(x / CELL);
       const r = Math.floor(y / CELL);
+      if (!inBounds(r, c)) return;
       if (!selected) {
         const piece = board[r][c];
         if (piece && piece.color === turn) setSelected({ r, c });
@@ -188,7 +189,13 @@ const ChessCanvas: React.FC = () => {
   }, [reset]);
 
   return (
-    <GameLayout title="Chess" bottomInfo={["말 클릭 후 이동할 칸 클릭, R: 리셋, 왕 두 칸 이동: 캐슬링"]}>
+    <GameLayout
+      title="Chess"
+      bottomInfo={["말 클릭 후 이동할 칸 클릭, R: 리셋, 왕 두 칸 이동: 캐슬링"]}
+      actionButtons={(
+        <GameButton onClick={reset} style={{ minWidth: 96, minHeight: 44 }}>Reset</GameButton>
+      )}
+    >
       <GameCanvas
         ref={canvasRef}
         width={WIDTH}
@@ -196,7 +203,6 @@ const ChessCanvas: React.FC = () => {
         onClick={handleClick}
         gameTitle="Chess"
       />
-      <GameButton onClick={reset}>Reset</GameButton>
     </GameLayout>
   );
 };

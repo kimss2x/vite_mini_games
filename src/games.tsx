@@ -1,4 +1,5 @@
 import React from 'react';
+import { PING_PONG_RULES } from './gameRules';
 
 // Lazy-loaded game canvases (code splitting)
 const PingPongCanvas     = React.lazy(() => import('./PingPongCanvas'));
@@ -70,10 +71,10 @@ export const games = [
     description: 'AI와 탁구 대결! 공이 점점 빨라집니다.',
     hotkey: '1',
     info: {
-      goal: 'Score 7 points before the AI does.',
+      goal: PING_PONG_RULES.goal,
       controls: ['Mouse or touch: move paddle up and down', 'Ball speeds up each rally'],
       mobileControls: 'Drag finger vertically to control paddle.',
-      scoring: '1 point per ball the opponent misses. First to 7 wins.',
+      scoring: PING_PONG_RULES.scoring,
       tips: 'Aim for edges to create difficult return angles.',
       note: "Noah Studio's original take on the table-tennis genre.",
     } as GameInfo,

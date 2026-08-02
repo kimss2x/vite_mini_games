@@ -10,6 +10,7 @@ interface GameLayoutProps {
   // 게임오버/승리 배너 오버레이용 (GameManager로 전달)
   gameStatus?: string;
   score?: number;
+  actionButtons?: React.ReactNode;
 }
 
 /**
@@ -23,6 +24,7 @@ const GameLayout: React.FC<GameLayoutProps> = ({
   onBackToMenu,
   gameStatus,
   score,
+  actionButtons,
 }) => {
   return (
     <GameManager
@@ -32,8 +34,22 @@ const GameLayout: React.FC<GameLayoutProps> = ({
       onBackToMenu={onBackToMenu}
       gameStatus={gameStatus}
       score={score}
+      actionButtons={actionButtons}
     >
-      {children}
+      <div
+        data-testid="game-layout-content"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 12,
+          width: '100%',
+          maxWidth: '100%',
+          minWidth: 0,
+        }}
+      >
+        {children}
+      </div>
     </GameManager>
   );
 };
