@@ -6,3 +6,12 @@ pages_build_output_dir = "dist"
 binding = "DB"
 database_name = "noah-studio-mini-games-db"
 database_id = "dec0e130-ddc0-4bd5-8b33-f9ce98e87cf7"
+
+[env.preview.vars]
+VITE_TURNSTILE_SITE_KEY = "1x00000000000000000000AA"
+
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "vite-mini-games-preview"
+database_id = "bb78bd38-2435-400d-842f-fc06bb4848fa"
+migrations_dir = "migrations"
